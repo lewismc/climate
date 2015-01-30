@@ -113,7 +113,7 @@ header "Checking for pip ..."
 command -v pip >/dev/null 2>&1 || { 
     task "Unable to locate pip."
     task "Installing Pip"
-    sudo apt-get install python-pip >> install_log
+    apt-get install python-pip >> install_log
     subtask "done"
 }
 
@@ -123,7 +123,7 @@ if [ $WITH_VIRTUAL_ENV == 1 ]; then
     # Check if virtualenv is installed. If it's not, we'll install it for the user.
     command -v virtualenv >/dev/null 2>&1 || { 
         task "Installing virtualenv ..."
-        sudo apt-get install -y python-virtualenv >> install_log
+        apt-get install -y python-virtualenv >> install_log
         subtask "done"
     }
 
@@ -170,8 +170,8 @@ task "Installing GEOS dependency ..."
 cd basemap-1.0.7/geos-3.3.3
 export GEOS_DIR=/usr/local
 ./configure --prefix=$GEOS_DIR >> install_log
-sudo make >> install_log
-sudo make install >> install_log
+make >> install_log
+make install >> install_log
 subtask "done"
 
 # Install basemap
