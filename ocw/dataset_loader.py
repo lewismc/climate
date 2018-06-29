@@ -99,12 +99,18 @@ class DatasetLoader:
         # Exclude esgf and dap for python 3 until they are compatible
         try:
             import ocw.data_source.esgf as esgf
-            import ocw.data_source.dap as dap
-            self._source_loaders['dap'] = dap.load
             self._source_loaders['esgf'] = esgf.load_dataset
         except ImportError:
-            warnings.warn('dap and esgf loaders missing. If these are needed, '
+            warnings.warn('esgf loader missing. If this is needed, '
                           'fallback to python 2.7.x.')
+
+        # Exclude esgf and dap for python 3 until they are compatible
+        try:
+            import ocw.data_source.dap as dap
+            self._source_loaders['dap'] = dap.load
+        except ImportError:
+            warnings.warn('dap loaders missing. If this is needed, '
+                          'upgrade to python >=3.4.x.')
 
     def add_source_loader(self, loader_name, loader_func):
         '''
