@@ -96,7 +96,7 @@ class DatasetLoader:
             'podaac': podaac.extract_l4_granule
         }
         
-        # Exclude esgf and dap for python 3 until they are compatible
+        # Exclude esgf for python > 2.7.x. until it is compatible
         try:
             import ocw.data_source.esgf as esgf
             self._source_loaders['esgf'] = esgf.load_dataset
@@ -104,13 +104,13 @@ class DatasetLoader:
             warnings.warn('esgf loader missing. If this is needed, '
                           'fallback to python 2.7.x.')
 
-        # Exclude esgf and dap for python 3 until they are compatible
+        # Exclude dap for python < 3.5 until it is compatible
         try:
             import ocw.data_source.dap as dap
             self._source_loaders['dap'] = dap.load
         except ImportError:
             warnings.warn('dap loaders missing. If this is needed, '
-                          'upgrade to python >=3.4.x.')
+                          'upgrade to python >=3.5.x.')
 
     def add_source_loader(self, loader_name, loader_func):
         '''

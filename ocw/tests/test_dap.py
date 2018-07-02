@@ -17,11 +17,14 @@
 
 import unittest
 import datetime as dt
-import ocw.data_source.dap as dap
+try:
+    import ocw.data_source.dap as dap
+except ImportError:
+    warnings.warn('dap loaders missing. If this is needed, upgrade to python >=3.5.x.')
 import platform
 from ocw.dataset import Dataset
 
-
+@unittest.skipIf(platform.python_version() < (3.5), "Pydap not supported in Python < 3.5")
 class TestDap(unittest.TestCase):
 
     @classmethod
